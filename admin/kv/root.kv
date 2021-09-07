@@ -1,0 +1,112 @@
+#:import hex kivy.utils.get_color_from_hex
+#:kivy 1.8.0
+
+Root:
+    id: main_win
+    orientation: 'vertical'
+    container: container
+    canvas.before:
+        Color:
+            rgba: hex('#FFFFFF')
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    # import container
+    
+    BoxLayout:
+        id: top_nav
+        size_hint_y: None
+        height: 30
+        canvas.before:
+            Color:
+                rgba:hex('#274472')
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Button:
+            file_dropdown: file_dropdown.__self__
+            id: file_trigger
+            text: 'File'
+            background_color: hex('#3F51B5')
+            on_release: file_dropdown.open(self)
+            size_hint: (.1,None)
+            height: 30
+
+            Widget:
+                on_parent: file_dropdown.dismiss()
+                DropDown:
+                    id: file_dropdown
+                    Button:
+                        id: close
+                        text: 'quit'
+                        background_color: hex('#3F51B5')
+                        size_hint_y: None
+                        height: 30
+
+        Label:
+            text: 'Admin Dashboard'
+            bold: True
+            size_hint: (.9,None)
+            height: 30
+    BoxLayout:
+        id: content_nav
+
+        BoxLayout:
+            id: nav_tabs
+            size_hint_x: .2
+            orientation: 'vertical'
+            spacing: 3
+            canvas.before:
+                Color:
+                    rgba:hex('#C3E0E5')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Button:
+                id: user_toggle
+                text: 'Manage Users'
+                size_hint_y: .06
+                on_release: app.nextScreen('1')
+                background_color: hex('#5885AF')
+                background_normal: ''
+                #state: 'down'
+                canvas.before:
+                    Color:
+                        rgba: hex('#274472')
+                    Line:
+                        width: 2
+                        rectangle: 0, self.y, self.width,0
+            Button:
+                id: product_toggle
+                text: 'Manage Products'
+                size_hint_y: .06
+                on_release: app.nextScreen('2')
+                background_color: hex('#5885AF')
+                background_normal: ''
+                canvas.before:
+                    Color:
+                        rgba: hex('#274472')
+                    Line:
+                        width: 2
+                        rectangle: 0, self.y, self.width, 0
+            Button:
+                id: analysis_toggle
+                text: 'Product Analysis'
+                size_hint_y: .06
+                on_release: app.nextScreen('3')
+                background_color: hex('#5885AF')
+                background_normal: ''
+                canvas.before:
+                    Color:
+                        rgba: hex('#274472')
+                    Line:
+                        width: 2
+                        rectangle: 0, self.y, self.width, 0
+            Label:
+                id: sp
+                text: ''
+                size_hint_y: .7                    
+        BoxLayout:
+            id: container
+            size_hint_x: .8
